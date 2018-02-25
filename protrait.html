@@ -1,0 +1,65 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>头像上传</title>
+	<link rel="stylesheet" href="./protrait.css">
+</head>
+<body>
+	<div id="app">
+		<section class="set clearfix">
+		  <div class="left">
+			<div class="head">
+			  <img id="userPhoto" :src="uploadData.imgData">
+			</div>
+			<button id="showUpload" @click=showUpload>点击上传头像</button>
+		  </div>	  
+		</section>
+		<div class="palbox" v-if="uploadData.uploadImgBox">
+			<div class="shadow-box"></div>
+			<div class="popup">
+			  <h3 class="common-header">头像设置</h3>
+			  <div class="content clearfix">
+				<div class="upload ceshi" v-show="!uploadData.anewImgBox">
+				  <div class="button udlr">
+					<button>
+					  <i class="iconfont icon-add"></i>
+					  本地上传
+					  <input class="upload-btn" @change="uploadPortrait" type="file" accept="image/gif, image/png, image/jpg, image/jpeg" >
+					</button>
+					<p class="hint">只支持JPG、PNG格式的图片，大小不超过5M</p>
+				  </div>
+				</div>
+				<div class="opeaUpload" v-show="uploadData.anewImgBox">
+				  <div class="opea-warp">
+					<div class="canvas-warp">
+					  <canvas id="drawCanv" :class="{'drawCanv':true,'dragMouse':uploadData.dragMouse,'zoomMouse':uploadData.zoomMouse}" :style="uploadData.filmCanvas.styleObj" @mousedown ="downPortrait" @mousemove="movePortrait" @mouseup="upPortrait"></canvas>
+					</div>
+					<canvas id="filmCanv" class="filmCanv" :style="uploadData.filmCanvas.styleObj"></canvas>
+				  </div>
+				  <span class="anew-warp">
+					<input type="file" @change="uploadPortrait" accept="image/gif, image/png, image/jpg, image/jpeg" >
+					<button class="anew" type="button">重新上传</button>
+				  </span>
+				</div>
+				<div class="view">
+				  <div id="localImag">
+					<p class="yl">头像预览</p>
+					<div class="imgbox udlr">
+					  <img id="preview" :src="uploadData.imgData">
+					</div>
+				  </div>
+				</div>
+			  </div>
+			  <div class="operate">
+				<button class="cancel" @click="closeUpload">取消</button>
+				<button class="ensure" @click="saveUploadPortrait">确定</button>
+			  </div>
+			</div>
+		</div>
+	</div>	
+</body>
+</html>
+<script src="./js/jquery-1.9.1.min.js"></script>
+<script src="https://cdn.bootcss.com/vue/2.5.13/vue.js"></script>
+<script src="./js/protrait.js"></script>
